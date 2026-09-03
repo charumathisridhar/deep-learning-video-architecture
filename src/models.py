@@ -55,6 +55,51 @@ def build_deep_cnn(input_shape=(128, 128, 3), num_classes=3):
 
     return model
 
+def build_improved_cnn(input_shape=(128, 128, 3), num_classes=3):
+
+    model = models.Sequential([
+
+        layers.Input(shape=input_shape),
+
+        # Block 1
+        layers.Conv2D(32, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.Conv2D(32, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+
+        # Block 2
+        layers.Conv2D(64, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.Conv2D(64, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+
+        # Block 3
+        layers.Conv2D(128, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.Conv2D(128, (3, 3), padding="same"),
+        layers.BatchNormalization(),
+        layers.Activation("relu"),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+
+        # Classification
+        layers.Flatten(),
+        layers.Dense(128, activation="relu"),
+        layers.Dropout(0.5),
+
+        layers.Dense(num_classes, activation="softmax")
+    ])
+
+    return model
 if __name__ == "__main__":
 
     model = build_shallow_cnn()
