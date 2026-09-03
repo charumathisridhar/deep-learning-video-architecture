@@ -2,9 +2,11 @@ import tensorflow as tf
 import time
 import os
 
-from models import build_shallow_cnn, build_deep_cnn
-
-
+from models import (
+    build_shallow_cnn,
+    build_deep_cnn,
+    build_improved_cnn
+)
 # -----------------------------
 # Settings
 # -----------------------------
@@ -119,6 +121,20 @@ deep_history, deep_time = train_model(
     "deep_cnn"
 )
 
+# -----------------------------
+# Train Improved CNN
+# -----------------------------
+
+improved_model = build_improved_cnn(
+    input_shape=(128, 128, 3),
+    num_classes=NUM_CLASSES
+)
+
+improved_history, improved_time = train_model(
+    improved_model,
+    "improved_cnn"
+)
+
 
 # -----------------------------
 # Final comparison
@@ -130,3 +146,4 @@ print("==============================")
 
 print(f"Shallow CNN training time: {shallow_time:.2f} seconds")
 print(f"Deep CNN training time: {deep_time:.2f} seconds")
+print(f"Improved CNN training time: {improved_time:.2f} seconds")
