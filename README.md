@@ -95,3 +95,63 @@ Image Frames
   |
   v
 CNN Model
+## 10. Experimental Results
+
+The three architectures were evaluated using the same dataset and training settings.
+
+| Model | Parameters | Training Accuracy | Validation Accuracy |
+|---|---:|---:|---:|
+| Shallow CNN | YOUR_VALUE | YOUR_VALUE% | YOUR_VALUE% |
+| Deep CNN | YOUR_VALUE | YOUR_VALUE% | YOUR_VALUE% |
+| Improved CNN | YOUR_VALUE | YOUR_VALUE% | YOUR_VALUE% |
+### Accuracy Comparison
+
+![Accuracy Comparison](results/final_accuracy_comparison.png)
+
+### Validation Accuracy
+
+![Validation Accuracy](results/final_validation_accuracy.png)
+
+### Loss Comparison
+
+![Loss Comparison](results/final_loss_comparison.png)
+
+### Parameter Comparison
+
+![Parameter Comparison](results/parameter_comparison.png)
+
+### Memory Comparison
+
+![Memory Comparison](results/memory_comparison.png)
+
+## 11. Analysis
+
+The experimental results show the effect of increasing architectural depth.
+
+The Deep CNN contains more convolutional layers than the Shallow CNN. 
+This increases the number of learnable parameters and computational requirements.
+
+The increased model complexity can also make training more difficult, 
+especially when the available dataset and computational resources are limited.
+
+The Improved CNN incorporates Batch Normalization and Dropout. 
+Batch Normalization helps stabilize the training process, while Dropout 
+helps reduce overfitting.
+
+Therefore, increasing depth should be balanced with computational resources, 
+dataset size, memory availability, and training stability.
+## 12. Conclusion
+
+This project analyzed the major architectural challenges associated with 
+increasing the depth of Deep Learning networks for video action recognition.
+
+The comparison between Shallow CNN and Deep CNN demonstrates that deeper 
+architectures can require more parameters, memory, and computation.
+
+The project also investigated training difficulty using gradient analysis.
+
+Batch Normalization and Dropout were introduced as architectural techniques 
+to improve training stability and reduce overfitting.
+
+The results demonstrate that deeper networks should be designed carefully 
+according to the complexity of the task and the available computational resources.
