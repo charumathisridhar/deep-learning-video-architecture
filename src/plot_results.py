@@ -1,107 +1,129 @@
+import json
 import matplotlib.pyplot as plt
-
-from train import (
-    shallow_history,
-    deep_history,
-    shallow_time,
-    deep_time
-)
+import os
 
 
-# -----------------------------
-# Accuracy Comparison
-# -----------------------------
+os.makedirs("results", exist_ok=True)
 
-plt.figure(figsize=(8, 5))
 
-plt.plot(
-    shallow_history.history["accuracy"],
-    label="Shallow CNN - Training"
-)
+def load_history(model_name):
 
-plt.plot(
-    shallow_history.history["val_accuracy"],
-    label="Shallow CNN - Validation"
-)
+    with open(
+        f"results/{model_name}_history.json",
+        "r"
+    ) as file:
 
-plt.plot(
-    deep_history.history["accuracy"],
-    label="Deep CNN - Training"
-)
+        return json.load(file)
 
-plt.plot(
-    deep_history.history["val_accuracy"],
-    label="Deep CNN - Validation"
-)
 
-plt.xlabel("Epoch")
-plt.ylabel("Accuracy")
-plt.title("Shallow CNN vs Deep CNN - Accuracy")
-
-plt.legend()
-plt.grid()
-
-plt.savefig("results/accuracy_comparison.png")
-
-plt.show()
+shallow = load_history("shallow_cnn")
+deep = load_history("deep_cnn")
+improved = load_history("improved_cnn")
 
 
 # -----------------------------
-# Loss Comparison
+# Accuracy
 # -----------------------------
 
 plt.figure(figsize=(8, 5))
 
 plt.plot(
-    shallow_history.history["loss"],
-    label="Shallow CNN - Training"
+    shallow["accuracy"],
+    label="Shallow CNN"
 )
 
 plt.plot(
-    shallow_history.history["val_loss"],
-    label="Shallow CNN - Validation"
+    deep["accuracy"],
+    label="Deep CNN"
 )
 
 plt.plot(
-    deep_history.history["loss"],
-    label="Deep CNN - Training"
-)
-
-plt.plot(
-    deep_history.history["val_loss"],
-    label="Deep CNN - Validation"
+    improved["accuracy"],
+    label="Improved CNN"
 )
 
 plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.title("Shallow CNN vs Deep CNN - Loss")
+plt.ylabel("Training Accuracy")
+plt.title("Training Accuracy Comparison")
 
 plt.legend()
 plt.grid()
 
-plt.savefig("results/loss_comparison.png")
+plt.savefig(
+    "results/final_accuracy_comparison.png"
+)
 
 plt.show()
 
 
 # -----------------------------
-# Training Time Comparison
+# Validation Accuracy
 # -----------------------------
 
-models = ["Shallow CNN", "Deep CNN"]
-times = [shallow_time, deep_time]
+plt.figure(figsize=(8, 5))
 
-plt.figure(figsize=(7, 5))
+plt.plot(
+    shallow["val_accuracy"],
+    label="Shallow CNN"
+)
 
-plt.bar(models, times)
+plt.plot(
+    deep["val_accuracy"],
+    label="Deep CNN"
+)
 
-plt.xlabel("Model")
-plt.ylabel("Training Time (seconds)")
-plt.title("Training Time Comparison")
+plt.plot(
+    improved["val_accuracy"],
+    label="Improved CNN"
+)
 
-plt.savefig("results/training_time_comparison.png")
+plt.xlabel("Epoch")
+plt.ylabel("Validation Accuracy")
+plt.title("Validation Accuracy Comparison")
+
+plt.legend()
+plt.grid()
+
+plt.savefig(
+    "results/final_validation_accuracy.png"
+)
 
 plt.show()
 
 
-print("\nResults saved in results folder.")
+# -----------------------------
+# Loss
+# -----------------------------
+
+plt.figure(figsize=(8, 5))
+
+plt.plot(
+    shallow["val_loss"],
+    label="Shallow CNN"
+)
+
+plt.plot(
+    deep["val_loss"],
+    label="Deep CNN"
+)
+
+plt.plot(
+    improved["val_loss"],
+    label="Improved CNN"
+)
+
+plt.xlabel("Epoch")
+plt.ylabel("Validation Loss")
+plt.title("Validation Loss Comparison")
+
+plt.legend()
+plt.grid()
+
+plt.savefig(
+    "results/final_loss_comparison.png"
+)
+
+plt.show()
+
+
+print("Final graphs generated successfully.")
