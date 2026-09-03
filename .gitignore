@@ -3,3 +3,4 @@ frames/
 venv/
 __pycache__/
 *.pyc
+*.keras
